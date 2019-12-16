@@ -27,14 +27,30 @@ public class Calc extends Compf {
                 s.push(first / second); break;
         }
     }
+    /* protected void nextOther(char c) {
+  s.push(char2int(c));
+     }*/
     protected void nextOther(char c) {
-        s.push(char2int(c));
+        if (num) {
+            int number = ((s.pop()) * 10) + char2int(c);
+            s.push(number);
+            num= true;
+        } else {
+            s.push(char2int(c));
+            num = true;
+        }
     }
     public Calc() {
         s = new StackInt();
     }
-    public final void compile(char[] str) {
+    /* public final void compile(char[] str) {
+         super.compile(str);
+         System.out.println("" + s.top());
+     }*/
+    public final void compile(char[] str)
+    {
         super.compile(str);
         System.out.println("" + s.top());
+        num = false;
     }
 }

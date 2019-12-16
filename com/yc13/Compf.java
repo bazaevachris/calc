@@ -6,6 +6,7 @@ public class Compf extends Stack {
             SYM_RIGHT = 1,
             SYM_OPER = 2,
             SYM_OTHER = 3;
+    public static boolean num = false;
     private int symType(char c) {
         switch (c) {
             case '(':
@@ -18,6 +19,7 @@ public class Compf extends Stack {
                 return symOther(c);
         }
     }
+
     private void processSymbol(char c) {
         switch (symType(c)) {
             case SYM_LEFT:
@@ -25,11 +27,12 @@ public class Compf extends Stack {
             case SYM_RIGHT:
                 processSuspendedSymbols(c); pop(); break;
             case SYM_OPER:
-                processSuspendedSymbols(c); push(c); break;
+                processSuspendedSymbols(c); push(c);num = false; break;
             case SYM_OTHER:
                 nextOther(c); break;
         }
     }
+
     private void processSuspendedSymbols(char c) {
         while (precedes(top(), c))
             nextOper(pop());
